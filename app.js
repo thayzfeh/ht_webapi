@@ -47,7 +47,7 @@ const db_pass = process.env.DB_PASS;
 mongoose.connect(
     `mongodb+srv://${db_user}:${db_pass}@htwebapi.w23ssu8.mongodb.net/?retryWrites=true&w=majority&appName=htWebApi`
 ).then(() => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
     console.log('banco conectado!')
 }).catch((e) => console.log(e))
 
