@@ -31,6 +31,7 @@ app.get('/users',checkToken, async (req, res) =>{
 app.post('/auth/register', registerRoute);
 app.post('/auth/login', loginRoute)
 app.post('/connection/create', checkToken, createConnection);
+
 app.get('/connection/show', checkToken, selectConnections, showConnection);
 
 
