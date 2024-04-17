@@ -17,9 +17,10 @@ module.exports = async(req, res) =>{
         sender_id : sender,
         receptor_id : receptor_id
     });
-    if(hasConnection) return res.status(500).json({msg: 'Conexão já existente!'})
+    if(hasConnection) return res.status(404).json({msg: 'Conexão já existente!'})
 
-    
+
+
     const connection = new Connection({
         sender_id : sender,
         receptor_id
