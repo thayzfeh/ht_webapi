@@ -5,14 +5,15 @@ const userById = require("../selects/userById");
 module.exports = async(req, res) =>{
     try {
         const senderPromises = req.sender.map(async (x) => {
-            console.log('showConnection map', x);
             return await userById(x.receptor_id);
         });
-
-        const sender = await Promise.all(senderPromises); // Wait for all promises to resolve
-
-        console.log(sender);
-        res.status(200).json({ sender, receptor: req.receptor });
+        const receptorPromises = req.receptor.map(async(x) =>{
+            return await userById(x.sender_id);
+        })
+        const sender = await Promise.all(senderPromises);
+        const receptor = await Promise.all(receptorPromises);
+        
+        res.status(200).json({ sender, receptor});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
