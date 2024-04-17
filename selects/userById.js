@@ -16,5 +16,5 @@ module.exports = async(id) =>{
 
         console.log('userByID resolve promise ', resolve(user));
     })
-    return select.then((x) => x.data)
+    return await select.then((x) => x.data)
 }
