@@ -2,8 +2,8 @@ const Connection = require("../models/Connection");
 const User = require("../models/User");
 const userById = require("../selects/userById");
 
-module.exports = async(req, res) =>{
-    sender = await req.sender.map((x) =>{
+module.exports = (req, res) =>{
+    sender = req.sender.map((x) =>{
         console.log('showConnection map', x);
         return userById(x.receptor_id);
     })
