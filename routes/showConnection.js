@@ -6,7 +6,7 @@ module.exports = async(req, res) =>{
             return await userById(x.receptor_id, "-_id -cpf -password -__v");
         });
         const receptorPromises = req.receptor.map(async(x) =>{
-            return await userById(x.sender_id);
+            return await userById(x.sender_id, "-_id -cpf -password -__v");
         })
         const sender = await Promise.all(senderPromises);
         const receptor = await Promise.all(receptorPromises);
