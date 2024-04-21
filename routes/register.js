@@ -27,12 +27,23 @@ module.exports = async(req, res) =>{
 
     //check if user already exists
     const emailExists = await User.findOne({email : email});
-    const userExists = await User.findOne({username: username});
     if (emailExists){
         return res.status(422).json({msg: 'O email já está cadastrado!'});
     }
+
+    const userExists = await User.findOne({username: username});
     if (userExists){
         return res.status(422).json({msg: 'O nome de usuário já está cadastrado!'});
+    }
+
+    const cpfExists = await User.findOne({cpf : cpf});
+    if (cpfExists){
+        return res.status(422).json({msg: 'O cpf já está cadastrado!'});
+    }
+
+    const phoneExists = await User.findOne({phone: phone});
+    if(phoneExists){
+        return res.status(422).json({msg: 'O telefone já está cadastrado!'});
     }
 
     //generate password
