@@ -23,12 +23,13 @@ module.exports = async(req, res) =>{
 
     const connection = new Connection({
         sender_id : sender,
-        receptor_id
+        receptor_id,
+        pending: true
     })
     
     try{
         await connection.save();
-        res.status(201).json({msg: 'Conexão criada com sucesso!'});
+        res.status(201).json({msg: 'Solicitação de conexão enviada com sucesso!'});
     }catch(e){
         console.log(e);
         res.status(500).json({msg: `${e}`});
