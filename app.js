@@ -16,6 +16,7 @@ const showConnection = require('./routes/showConnection');
 const selectConnections = require('./middlewares/selectConnections');
 const deleteConnection = require('./routes/deleteConnection');
 const authorizeConnection = require('./routes/authorizeConnection');
+const authUser = require('./routes/authUser');
 
 
 app.get('/users',checkToken, async (req, res) =>{
@@ -32,6 +33,7 @@ app.get('/users',checkToken, async (req, res) =>{
 
 app.post('/auth/register', registerRoute);
 app.post('/auth/login', loginRoute);
+app.post('/auth/:token', checkRouteToken, authUser);
 
 app.post('/connection/create', checkToken, createConnection);
 app.post('/connection/delete', checkToken, deleteConnection);

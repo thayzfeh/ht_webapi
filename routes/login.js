@@ -33,7 +33,7 @@ module.exports = async(req, res) =>{
         const token = jwt.sign({
             id: user._id,
         }, secret)
-        res.status(200).json({msg: 'Autenticação realizada com sucesso!',token});
+        res.status(200).json({msg: 'Autenticação realizada com sucesso!',token, user});
 
     }catch(e){
         console.log(e);
