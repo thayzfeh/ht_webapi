@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const path = require('path');
+const express = require('express');
 
 module.exports = async(req, res) =>{
     const id = req.decodedToken.id;
@@ -8,8 +10,8 @@ module.exports = async(req, res) =>{
     user.pending = false;
     try{
         user.save();
-        //mexer a partir daqui!!!!!!!!!!!
+        res.sendFile(path.resolve(__dirname, '../public/authMail.html'));
     }catch(e){
-        //MEXER AQUI TAMBÉM
+        console.log('error authorizating register:',e);
     }
 }

@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const sendMail = require('../services/mailService/sendMail');
-const prepareMail = require('../services/mailService/prepareMail');
+const authMail = require('../services/mailService/authMail')
 
 module.exports = async(req, res) =>{
     const {username, cpf, email, password, phone, birth} = req.body;
@@ -67,11 +66,13 @@ module.exports = async(req, res) =>{
 
     //save in database
     try{
-        await user.save();
         const token = jwt.sign({
             id: user._id,
-        });
-        
+        },process.env.SECRET);
+        authMail(token, user.email);
+
+        await user.save();
+
         res.status(201).json({msg: 'Usuário criado com sucesso'});
     }catch(e){
         console.log(e);

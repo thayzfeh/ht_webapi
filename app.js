@@ -3,15 +3,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 const app = express();
 
 app.use(express.json());
+app.use(express.static("public"));
 
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const createConnection = require('./routes/createConnection')
 const checkToken = require('./middlewares/checkToken');
+const checkRouteToken = require('./middlewares/checkRouteToken')
 const showConnection = require('./routes/showConnection');
 const selectConnections = require('./middlewares/selectConnections');
 const deleteConnection = require('./routes/deleteConnection');
@@ -33,7 +36,7 @@ app.get('/users',checkToken, async (req, res) =>{
 
 app.post('/auth/register', registerRoute);
 app.post('/auth/login', loginRoute);
-app.post('/auth/:token', checkRouteToken, authUser);
+app.get('/auth/:token', checkRouteToken, authUser);
 
 app.post('/connection/create', checkToken, createConnection);
 app.post('/connection/delete', checkToken, deleteConnection);
@@ -54,7 +57,7 @@ const db_pass = process.env.DB_PASS;
 mongoose.connect(
     `mongodb+srv://${db_user}:${db_pass}@htwebapi.w23ssu8.mongodb.net/?retryWrites=true&w=majority&appName=htWebApi`
 ).then(() => {
-    app.listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 80);
     console.log('banco conectado!')
 }).catch((e) => console.log(e))
 

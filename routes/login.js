@@ -20,6 +20,9 @@ module.exports = async(req, res) =>{
         return res.status(404).json({msg: 'Usuário não encontrado.'});
     }
 
+
+    if(user.pending) return res.status(422).json({msg: 'Finalize seu cadastro!'});
+
     //check password
     const checkPassword = await bcrypt.compare(password, user.password);
 
