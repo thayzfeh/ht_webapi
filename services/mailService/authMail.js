@@ -3,7 +3,8 @@ const prepareMail = require('./prepareMail');
 const sendMail = require('./sendMail');
 
 module.exports = (token, email) =>{
-    const auth_url = `localhost/auth/${token}`
+    const url = process.env.URL;
+    const auth_url = `${url}/auth/${token}`;
 
 
 
