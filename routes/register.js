@@ -73,7 +73,7 @@ module.exports = async(req, res) =>{
 
         await user.save();
 
-        res.status(201).json({msg: 'Usuário criado com sucesso'});
+        res.status(201).json({msg: 'Usuário criado com sucesso. Finalize seu cadastro acessando seu e-mail!'});
     }catch(e){
         console.log(e);
         res.status(500).json({msg: `${e}`});
