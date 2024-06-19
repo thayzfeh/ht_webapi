@@ -4,8 +4,20 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
+
+
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
+  };
+  
+  
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 app.use(express.static("public"));
